@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// フロント用API以外は全部indexを返却する
+Route::get('/{any?}', function() {
+    return view('index');
+})->where('any', '.+');
