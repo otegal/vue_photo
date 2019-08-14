@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePhoto;
 use App\Photo;
 use Illuminate\Http\Request;
-use Auth;
-use DB;
-use Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
