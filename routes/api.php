@@ -20,3 +20,8 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // ログアウトAPI
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// ログインユーザ確認
+Route::get('/user', function () {
+    return Auth::user();
+})->name('user');
