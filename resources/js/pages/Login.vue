@@ -53,14 +53,14 @@ export default {
     }
   },
   methods: {
+    async register() {
+      await this.$store.dispatch('auth/register', this.registerForm)
+      this.$router.push('/')
+    },
     async login() {
       await this.$store.dispatch('auth/login', this.loginForm)
       this.$router.push('/')
     },
-    async register() {
-      await this.$store.dispatch('auth/register', this.registerForm)
-      this.$router.push('/')
-    }
   }
 }
 </script>
