@@ -13,7 +13,16 @@ class PhotoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'download']);
+    }
+
+    public function index()
+    {
+        $photo = Photo::with(['owner'])
+            ->orderBy(Photo::CREATED_AT, 'desc')
+            ->paginate();
+
+        return $photo;
     }
 
 
@@ -40,5 +49,20 @@ class PhotoController extends Controller
         // リソースの新規作成なので
         // レスポンスコードは201(CREATED)を返却する
         return response($photo, 201);
+    }
+
+    public function download(Photo $photo)
+    {
+        // 写真の存在チェック
+        if (! Storage::cloud()->exists($photo->filename)) {
+            abort(404);
+        }
+
+        $headers = [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="' . $photo->filename . '"',
+        ];
+
+        return response(Storage::cloud()->get($photo->filename), 200, $headers);
     }
 }

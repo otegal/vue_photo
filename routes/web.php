@@ -12,6 +12,11 @@
 */
 
 
+// 写真ダウンロード
+Route::get('/photos/{photo}/download', 'PhotoController@download');
+
+
+
 // フロント用API以外は全部indexを返却する
 Route::get('/{any?}', function() {
     return view('index');
